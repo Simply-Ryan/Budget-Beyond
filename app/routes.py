@@ -11,6 +11,7 @@ from flask import (
 from app.auth import login_required
 from app.forms import SignupForm, LoginForm
 from app.models import db, User
+from app.email_service import send_welcome_email
 
 bp = Blueprint('main', __name__)
 
@@ -59,7 +60,13 @@ def signup():
             session['user_id'] = user.id
             session['user_name'] = user.full_name
             
-            flash('Account created successfully! Welcome to Budget & Beyond!', 'success')
+            # Send welcome email
+            email_sent = send_welcome_email(user.email, user.full_name)
+            if email_sent:
+                flash('Account created successfully! Welcome to Budget & Beyond! A welcome email has been sent to your inbox.', 'success')
+            else:
+                flash('Account created successfully! Welcome to Budget & Beyond! (Note: Welcome email could not be sent)', 'success')
+            
             return redirect(url_for('main.home'))
             
         except Exception as e:
