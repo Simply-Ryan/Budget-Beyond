@@ -1,39 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Budget & Beyond</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-        }
-        main {
-            margin: 50px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Welcome to Budget & Beyond!</h1>
-    </header>
-    <main>
-        <p>Your personal dashboard is ready.</p>
-        <button onclick="alert('Everything works!')">Click me</button>
-    </main>
-</body>
-</html>
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Text -->
+            <div class="col-md-6 hero-text text-center text-md-start">
+                <h1>Take Control of Your Finances</h1>
+                <p>Track spending, manage budgets, and plan ahead to go beyond your limits.</p>
+                <a href="#" class="btn btn-primary me-2">Access Your Dashboard</a>
+                <a href="#" class="btn btn-outline-secondary">Track Your Expenses</a>
+            </div>
+            <!-- Dashboard Preview -->
+            <div class="col-md-6 text-center mt-4 mt-md-0">
+                <div class="card shadow-lg p-4" style="max-width: 350px; margin: 0 auto;">
+                    <h5 class="card-title mb-3">Dashboard Preview</h5>
+                    <div class="progress mb-2" style="height: 10px;">
+                        <div class="progress-bar" role="progressbar" style="width: 70%;"></div>
+                    </div>
+                    <div class="progress mb-2" style="height: 10px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 45%;"></div>
+                    </div>
+                    <p class="mt-3 text-muted">Example of your finances at a glance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Feature Cards -->
+<section class="py-4">
+    <div class="container">
+        <div class="row g-5 justify-content-center">
+            <!-- Track Expenses -->
+            <div class="col-md-4"> 
+                <div class="card shadow-sm h-100 text-center p-3">
+                    <div class="card-body">
+                        <h5 class="card-title">💸 Track Expenses</h5>
+                        <p class="card-text">Add and monitor your daily expenses to see where your money goes.</p>
+                        <a href="#" class="btn btn-outline-primary">Go to Expenses</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Finance Manager -->
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100 text-center p-3">
+                    <div class="card-body">
+                        <h5 class="card-title">📊 Finance Manager</h5>
+                        <p class="card-text">Visualize budgets, savings goals, and overall financial health at a glance.</p>
+                        <a href="#" class="btn btn-outline-primary">Open Finance Manager</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Bills Tracker -->
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100 text-center p-3">
+                    <div class="card-body">
+                        <h5 class="card-title">📅 Bills Tracker</h5>
+                        <p class="card-text">Keep track of recurring bills like Netflix, Spotify, or Rent to never miss a payment.</p>
+                        <a href="#" class="btn btn-outline-primary">View Bills</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
