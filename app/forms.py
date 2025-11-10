@@ -30,7 +30,7 @@ class SignupForm(FlaskForm):
     
     submit = SubmitField('Create Account')
 
-class LoginForm(FlaskForm):
+class SigninForm(FlaskForm):
     email = EmailField('Email', validators=[
         DataRequired(),
         Email()

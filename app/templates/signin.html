@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}Budget Beyond - Login{% endblock %}
+{% block title %}Budget Beyond - Sign In{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -8,9 +8,9 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 
-                <h3 class="card-title mb-4 text-center">Log In</h3>
+                <h3 class="card-title mb-4 text-center">Sign In</h3>
 
-                <form method="POST" action="{{ url_for('main.login') }}">  
+                <form method="POST" action="{{ url_for('main.signin') }}">  
                     {{ form.hidden_tag() }}
                     
                     <div class="mb-3">

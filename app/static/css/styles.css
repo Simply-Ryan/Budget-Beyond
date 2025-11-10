@@ -23,10 +23,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    background-color: #f8f9fa !important;
-    color: #212529 !important;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.6; /* Improves text readability with proper spacing between lines */
+    background-color: #f8f9fa !important; /* Light gray background, !important overrides Bootstrap defaults */
+    color: #212529 !important; /* Dark gray text color for good contrast */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth color changes for theme switching */
 }
 
 /* ==========================================================================
@@ -54,11 +54,11 @@ body {
 
 /* Bootstrap Override Dark Theme */
 [data-bs-theme="dark"] html {
-    background-color: #121212 !important;
+    background-color: #121212 !important; /* Force dark background on root element */
 }
 
 [data-bs-theme="dark"] * {
-    border-color: #404040;
+    border-color: #404040; /* Universal border color for all elements in dark mode */
 }
 
 [data-bs-theme="dark"] h1, 
@@ -79,8 +79,16 @@ body {
     background-color: #1a1a1a !important;
 }
 
+[data-bs-theme="dark"] .navbar-brand {
+    color: #ffffff !important; /* White text for dark theme */
+}
+
 [data-bs-theme="dark"] .navbar-brand-separator {
-    color: #ffffff;
+    color: #ffffff !important; /* White separator for dark theme */
+}
+
+[data-bs-theme="dark"] .navbar-nav .nav-link {
+    color: #ffffff !important; /* White navigation links for dark theme */
 }
 
 /* Cards Dark Theme */
@@ -101,16 +109,16 @@ body {
 
 /* Forms Dark Theme */
 [data-bs-theme="dark"] .form-control {
-    background-color: #2d2d2d;
-    border: 1px solid #404040;
-    color: #f1f1f1;
+    background-color: #2d2d2d; /* Dark input field background */
+    border: 1px solid #404040; /* Subtle gray border for visibility */
+    color: #f1f1f1; /* Light text color for contrast */
 }
 
 [data-bs-theme="dark"] .form-control:focus {
-    background-color: #2d2d2d;
-    border-color: #0d6efd;
-    color: #f1f1f1;
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    background-color: #2d2d2d; /* Keep dark background when focused */
+    border-color: #0d6efd; /* Blue border to indicate active state */
+    color: #f1f1f1; /* Maintain light text color */
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); /* Blue glow effect around focused input */
 }
 
 [data-bs-theme="dark"] .form-label {
@@ -177,126 +185,125 @@ body {
 
 /* Navbar Styling */
 .navbar {
-    background-color: #ffffff;
-    transition: background-color 0.3s ease;
-    border-bottom: #121212 5px solid;
+    background-color: #ffffff; /* White background for light mode */
+    transition: background-color 0.3s ease; /* Smooth color transition for theme changes */
+    border-bottom: #121212 5px solid; /* Dark bottom border for visual separation */
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
-    color: #ffffff;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
+    font-size: 1.5rem; /* Large text for brand visibility */
+    color: #212529; /* Dark text color for light theme visibility */
+    position: relative; /* Allows absolute positioning of child elements */
+    overflow: hidden; /* Hides content that extends beyond boundaries (for animations) */
+    transition: all 0.3s ease; /* Smooth transitions for all property changes */
 }
 
 /* Navbar Brand - Static Part */
 .navbar-brand {
-    font-size: 1.5rem;
-    color: #ffffff;
-    position: relative;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    line-height: 1.2;
+    font-size: 1.5rem; /* Large brand text size */
+    color: #212529; /* Dark text color for light theme visibility */
+    position: relative; /* Creates positioning context for child elements */
+    transition: all 0.3s ease; /* Smooth transitions for hover/state changes */
+    display: flex; /* Flexbox layout for proper alignment of brand components */
+    align-items: center; /* Vertically center all brand elements */
+    line-height: 1.2; /* Consistent line height for text alignment */
 }
 
 /* Navbar Brand - Static Separator */
 .navbar-brand-separator {
-    color: #ffffff;
-    margin: 0 8px;
-    display: inline-block;
+    color: #212529; /* Dark color to match brand text in light theme */
+    margin: 0 8px; /* Horizontal spacing around the separator (dash) */
+    display: inline-block; /* Allows margin/padding while staying inline */
 }
 
 /* Navbar Brand - Dynamic Section Animation */
 .navbar-brand-dynamic {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    margin-left: 4px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: slideInFromRight 0.6s ease-out;
-    will-change: transform, opacity;
-    vertical-align: baseline;
-    line-height: inherit;
-    margin-left: 0;
+    display: inline-block; /* Allows transforms while maintaining inline flow */
+    overflow: hidden; /* Hides text during slide animations */
+    white-space: nowrap; /* Prevents text wrapping during animations */
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Custom easing for smooth animations */
+    animation: slideInFromBelow 1s ease-out forwards; /* Initial slide-in animation from below - quicker timing */
+    will-change: transform, opacity; /* Optimizes performance by hinting at animated properties */
+    vertical-align: baseline; /* Aligns text baseline with static brand text */
+    line-height: inherit; /* Inherits line-height from parent for consistent alignment */
+    margin-left: 4px; /* Spacing from separator */
+    opacity: 0; /* Start invisible before animation */
+    transform: translateY(20px); /* Start positioned below normal position */
 }
 
-/* Smooth slide-in animation from right - no bounce */
-@keyframes slideInFromRight {
+/* Smooth slide-in animation from below - no bounce */
+@keyframes slideInFromBelow {
     0% {
-        transform: translateX(100%);
-        opacity: 0;
+        transform: translateY(20px); /* Start 20px below normal position */
+        opacity: 0; /* Start invisible */
     }
     100% {
-        transform: translateX(0);
-        opacity: 1;
+        transform: translateY(0); /* End at original position */
+        opacity: 1; /* End fully visible */
     }
 }
 
-/* Smooth slide-out animation to right */
-@keyframes slideOutToRight {
+/* Smooth slide-out animation down */
+@keyframes slideOutDown {
     0% {
-        transform: translateX(0);
-        opacity: 1;
+        transform: translateY(0); /* Start at original position */
+        opacity: 1; /* Start fully visible */
     }
     100% {
-        transform: translateX(100%);
-        opacity: 0;
+        transform: translateY(20px); /* End 20px below normal position */
+        opacity: 0; /* End invisible */
     }
 }
 
 /* Animation control classes */
 .navbar-brand-dynamic.slide-out {
-    animation: slideOutToRight 0.3s ease-in forwards;
+    animation: slideOutDown 0.3s ease-in forwards; /* Fast slide-out animation - back to original speed */
 }
 
 .navbar-brand-dynamic.slide-in {
-    animation: slideInFromRight 0.6s ease-out forwards;
+    animation: slideInFromBelow 1s ease-out forwards; /* Quicker slide-in animation from below */
 }
 
 /* Page transition animation classes */
 .navbar-brand-content.slide-out {
-    animation: slideOutToRight 0.3s ease-in forwards;
+    animation: slideOutDown 0.5s ease-in forwards; /* Slides content out before page change */
 }
 
 .navbar-brand-content.slide-in {
-    animation: slideInFromLeft 0.6s ease-out forwards;
+    animation: slideInFromBelow 1s ease-out forwards; /* Slides new content in from below */
 }
 
 /* Page content fade-in animation */
 .page-content {
-    animation: fadeInUp 0.6s ease-out;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    animation: fadeInUp 0.6s ease-out; /* Animates page content entrance */
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Smooth transitions for interactive states */
 }
 
 @keyframes fadeInUp {
     0% {
-        opacity: 0;
-        transform: translateY(30px) scale(0.98);
+        opacity: 0; /* Start invisible */
+        transform: translateY(30px) scale(0.98); /* Start slightly below and smaller */
     }
     100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+        opacity: 1; /* End fully visible */
+        transform: translateY(0) scale(1); /* End at normal position and size */
     }
 }
 
 /* Staggered animation for multiple elements */
-.animate-stagger > *:nth-child(1) { animation-delay: 0.1s; }
-.animate-stagger > *:nth-child(2) { animation-delay: 0.2s; }
-.animate-stagger > *:nth-child(3) { animation-delay: 0.3s; }
-.animate-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.animate-stagger > *:nth-child(1) { animation-delay: 0.1s; } /* First child animates first */
+.animate-stagger > *:nth-child(2) { animation-delay: 0.2s; } /* Second child follows */
+.animate-stagger > *:nth-child(3) { animation-delay: 0.3s; } /* Third child follows */
+.animate-stagger > *:nth-child(4) { animation-delay: 0.4s; } /* Fourth child animates last */
 
 .navbar-nav .nav-link {
-    margin: 0 0.5rem;
-    font-weight: 500;
-    color: #ffffff;
-    -webkit-text-stroke: #121212 0.3px;
-    
+    margin: 0 0.5rem; /* Horizontal spacing between navigation links */
+    font-weight: 500; /* Medium font weight for good readability */
+    color: #212529; /* Dark text color for light theme visibility */
 }
 
 .navbar .btn {
-    font-weight: 500;
+    font-weight: 500; /* Medium font weight for navbar buttons */
 }
 
 /* ==========================================================================
@@ -305,38 +312,75 @@ body {
 
 /* Primary Buttons */
 .btn-primary {
-    border-radius: 50px;
-    padding: 0.6rem 1.8rem;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
+    background-color: #45818E !important; /* Custom blue-teal color */
+    border-color: #45818E !important; /* Match border to background */
+    border-radius: 50px; /* Creates rounded pill-shaped buttons */
+    padding: 0.6rem 1.8rem; /* Extra padding for better click targets */
+    font-size: 1.1rem; /* Slightly larger text for prominence */
+    transition: all 0.3s ease; /* Smooth transitions for hover effects */
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background-color: #3a6e7a !important; /* Darker blue-teal on hover */
+    border-color: #3a6e7a !important; /* Match border to hover background */
+    transform: translateY(-2px); /* Subtle upward movement on hover */
+    box-shadow: 0 5px 15px rgba(69, 129, 142, 0.4); /* Shadow effect with custom color tint */
+}
+
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #3a6e7a !important; /* Consistent color for focus/active states */
+    border-color: #3a6e7a !important; /* Match border */
+    box-shadow: 0 0 0 0.2rem rgba(69, 129, 142, 0.25) !important; /* Custom focus ring */
 }
 
 /* Secondary Buttons */
 .btn-outline-secondary {
-    border-radius: 50px;
-    transition: all 0.3s ease;
+    border-radius: 50px; /* Matches primary button styling */
+    transition: all 0.3s ease; /* Smooth hover transitions */
 }
 
 .btn-outline-secondary:hover {
-    background-color: #0d6efd;
-    color: #fff;
+    background-color: #0d6efd; /* Blue background on hover */
+    color: #fff; /* White text on hover */
+}
+
+/* Outline Primary Buttons */
+.btn-outline-primary {
+    border-color: #45818E !important; /* Custom blue-teal border */
+    color: #45818E !important; /* Custom blue-teal text */
+    border-radius: 50px; /* Matches primary button styling */
+    padding: 0.6rem 1.8rem; /* Extra padding for better click targets */
+    font-size: 1.1rem; /* Slightly larger text for prominence */
+    transition: all 0.3s ease; /* Smooth hover transitions */
+}
+
+.btn-outline-primary:hover {
+    background-color: #45818E !important; /* Custom blue-teal background on hover */
+    border-color: #45818E !important; /* Custom blue-teal border on hover */
+    color: #fff !important; /* White text on hover */
+    transform: translateY(-2px); /* Subtle upward movement on hover */
+    box-shadow: 0 5px 15px rgba(69, 129, 142, 0.3); /* Shadow effect */
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    background-color: #3a6e7a !important; /* Darker on focus/active */
+    border-color: #3a6e7a !important; /* Match border */
+    color: #fff !important; /* White text */
+    box-shadow: 0 0 0 0.2rem rgba(69, 129, 142, 0.25) !important; /* Custom focus ring */
 }
 
 /* Button Dark Theme */
 [data-bs-theme="dark"] .btn-outline-primary {
-    border-color: #0d6efd;
-    color: #0d6efd;
+    border-color: #45818E !important; /* Custom blue-teal border */
+    color: #45818E !important; /* Custom blue-teal text */
 }
 
 [data-bs-theme="dark"] .btn-outline-primary:hover {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    color: #fff;
+    background-color: #45818E !important; /* Custom blue-teal background on hover */
+    border-color: #45818E !important; /* Custom blue-teal border on hover */
+    color: #fff !important; /* White text on hover */
 }
 
 [data-bs-theme="dark"] .btn-outline-secondary {

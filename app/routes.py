@@ -30,7 +30,7 @@ from flask import (
 
 # Application Imports
 from app.auth import login_required, email_verification_required
-from app.forms import SignupForm, LoginForm
+from app.forms import SignupForm, SigninForm
 from app.models import db, User
 from app.email_service import send_verification_email, send_welcome_email
 
@@ -141,9 +141,9 @@ def signup():
     # Display form (GET request or validation failed)
     return render_template('signup.html', form=form)
 
-@bp.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
+@bp.route('/signin', methods=['GET', 'POST'])
+def signin():
+    form = SigninForm()
     
     if form.validate_on_submit():
         email = form.email.data
@@ -157,18 +157,18 @@ def login():
             session['user_id'] = user.id
             session['user_name'] = user.full_name
             
-            flash('Login successful! Welcome back!', 'success')
+            flash('Sign in successful! Welcome back!', 'success')
             return redirect(url_for('main.home'))
         else:
             flash('Invalid email or password. Please try again.', 'error')
     
-    return render_template('login.html', form=form)
+    return render_template('signin.html', form=form)
 
 @bp.route('/logout')
 def logout():
     session.clear()
-    flash('You have been logged out successfully.', 'info')
-    return redirect(url_for('main.login'))
+    flash('You have been signed out successfully.', 'info')
+    return redirect(url_for('main.signin'))
 
 @bp.route('/verify-email-notice')
 @login_required
@@ -186,7 +186,7 @@ def verify_email(token):
     
     if user is None:
         flash('The verification link is invalid or has expired. Please request a new one.', 'error')
-        return redirect(url_for('main.login'))
+        return redirect(url_for('main.signin'))
     
     if user.email_verified:
         flash('Your email has already been verified. You can now access your account.', 'info')

@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 
-{% block title %}Budget Beyond - Welcome {{ user.first_name if user else 'Home' }}{% endblock %}
+{% block title %}Home{% endblock %}
 
-{% block navbar_dynamic %}{% if user %}<span class="navbar-brand-separator"> - </span><span class="navbar-brand-dynamic" id="navbarDynamicText">Welcome {{ user.first_name }}</span>{% endif %}{% endblock %}
+{% block navbar_dynamic %}{% if user %}<span class="navbar-brand-separator"> - </span><span class="navbar-brand-dynamic" id="navbarDynamicText">Welcome, {{ user.first_name }}</span>{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
