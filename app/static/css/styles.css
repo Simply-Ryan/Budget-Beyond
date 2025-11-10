@@ -118,6 +118,7 @@ body {
 /* Hero Section Dark Theme */
 [data-bs-theme="dark"] .hero {
     background-color: #1e1e1e;
+    border-radius : 15px;
 }
 
 /* Alerts Dark Theme */
@@ -172,13 +173,14 @@ body {
 
 .navbar-brand {
     font-size: 1.5rem;
-    color: #000000;
+    color: #ffffff;
 }
 
 .navbar-nav .nav-link {
     margin: 0 0.5rem;
     font-weight: 500;
-    color: #000000;
+    color: #ffffff;
+    -webkit-text-stroke: #121212 0.3px;
     
 }
 
