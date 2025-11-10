@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                
+                <div class="mb-4">
+                    <i class="fas fa-envelope fa-3x text-primary"></i>
+                </div>
+                
+                <h3 class="card-title mb-3">Verify Your Email Address</h3>
+                
+                <p class="mb-4">
+                    Hi <strong>{{ user.full_name }}</strong>! We've sent a verification email to:
+                </p>
+                
+                <p class="mb-4">
+                    <strong class="text-primary">{{ user.email }}</strong>
+                </p>
+                
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    Please check your email and click the verification link to complete your registration and access your account.
+                </div>
+                
+                <div class="mb-4">
+                    <h5>Next Steps:</h5>
+                    <ol class="text-start">
+                        <li>Check your inbox for an email from Budget & Beyond</li>
+                        <li>Click the "Verify My Email Address" button in the email</li>
+                        <li>Return here to access your account</li>
+                    </ol>
+                </div>
+                
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Note:</strong> The verification link will expire in 1 hour for security reasons.
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('main.resend_verification') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-paper-plane"></i> Resend Verification Email
+                    </a>
+                    
+                    <a href="{{ url_for('main.logout') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+                
+                <hr class="my-4">
+                
+                <div class="text-muted">
+                    <small>
+                        <strong>Didn't receive the email?</strong><br>
+                        Check your spam folder or click "Resend Verification Email" above.
+                    </small>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
