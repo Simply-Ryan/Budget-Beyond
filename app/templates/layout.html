@@ -1,12 +1,29 @@
+<!--
+=======================================================
+Budget Beyond - Base Layout Template
+=======================================================
+Main layout template that provides the structure for all pages
+Features:
+- Responsive Bootstrap 5.3.2 framework
+- Dynamic dark/light theme system
+- Animated navbar with dynamic page titles
+- Authentication-aware navigation
+=======================================================
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Information -->
     <meta charset="UTF-8">
-    <title>{{ title or "Budget Beyond" }}</title>
+    <title>{% block title %}Budget Beyond{% endblock %}</title>
+    
+    <!-- External Stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+    <!-- Theme Override Styles -->
     <style>
-        /* Force override Bootstrap defaults */
+        /* Force override Bootstrap defaults for immediate theme application */
         body[data-bs-theme="dark"] {
             background-color: #121212 !important;
             color: #f1f1f1 !important;
@@ -26,58 +43,66 @@
 </head>
 <body data-bs-theme="light">
 
-    <!-- Navbar -->
+    <!-- =================================================================
+         NAVIGATION BAR
+         ================================================================= -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main.home') if session.get('user_id') else url_for('main.login') }}">Budget Beyond</a>
+            <!-- Brand with Dynamic Animation -->
+            <a class="navbar-brand" href="{{ url_for('main.home') if session.get('user_id') else url_for('main.login') }}">
+                Budget Beyond{% block navbar_dynamic %}{% endblock %}
+            </a>
             
-            <!-- Only show navbar toggle and items if user is logged in -->
+            <!-- Authentication-Based Navigation -->
             {% if session.get('user_id') %}
-            <!-- Navbar toggler for mobile -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <!-- Navbar items -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.settings') }}">Settings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
-                    </li>
-                </ul>
-            </div>
+                <!-- Authenticated User Navigation -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.settings') }}">Settings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
             {% else %}
-            <!-- Show login/signup links for non-authenticated users -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAuth" aria-controls="navbarNavAuth" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNavAuth">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.signup') }}">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
+                <!-- Unauthenticated User Navigation -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAuth" aria-controls="navbarNavAuth" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNavAuth">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.signup') }}">Sign Up</a>
+                        </li>
+                    </ul>
+                </div>
             {% endif %}
         </div>
     </nav>
 
-    <!-- Page Content -->
-    <div class="container mt-4">
+    <!-- =================================================================
+         MAIN CONTENT AREA
+         ================================================================= -->
+    <div class="container mt-4 page-content">
         {% block content %}{% endblock %}
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- =================================================================
+         JAVASCRIPT LIBRARIES & CUSTOM SCRIPTS
+         ================================================================= -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Theme initialization script -->
@@ -96,7 +121,88 @@
                 document.body.style.backgroundColor = '#f8f9fa';
                 document.body.style.color = '#212529';
             }
+    <!-- Bootstrap JavaScript Framework -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    /* ================================================================
+       THEME MANAGEMENT SYSTEM
+       ================================================================ */
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize theme from localStorage or default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-bs-theme', savedTheme);
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        
+        // Apply theme-specific styling immediately
+        if (savedTheme === 'dark') {
+            document.body.style.backgroundColor = '#121212';
+            document.body.style.color = '#f1f1f1';
+        } else {
+            document.body.style.backgroundColor = '#f8f9fa';
+            document.body.style.color = '#212529';
+        }
+
+        /* ============================================================
+           DYNAMIC NAVBAR ANIMATION SYSTEM
+           ============================================================ */
+        
+        /**
+         * Animates the dynamic portion of the navbar title
+         * Only animates the text after "Budget Beyond"
+         */
+        function animateDynamicNavbar() {
+            const dynamicElement = document.getElementById('navbarDynamicText');
+            if (dynamicElement && dynamicElement.textContent.trim()) {
+                // Clean slide-in animation without bounce
+                dynamicElement.style.animation = 'slideInFromRight 0.6s ease-out';
+            }
+        }
+        
+        // Initialize dynamic navbar animation on page load
+        animateDynamicNavbar();
+        
+        /* ============================================================
+           SMOOTH NAVIGATION TRANSITIONS
+           ============================================================ */
+        
+        let isTransitioning = false;
+        
+        /**
+         * Handles smooth navigation transitions
+         * Slides out dynamic content before navigation
+         * @param {Event} e - Click event
+         */
+        function handleSmoothNavigation(e) {
+            if (isTransitioning) return;
+            
+            const targetHref = e.currentTarget.getAttribute('href');
+            if (!targetHref || targetHref.startsWith('#')) return;
+            
+            // Only animate if there's dynamic content to animate
+            const dynamicElement = document.getElementById('navbarDynamicText');
+            if (!dynamicElement || !dynamicElement.textContent.trim()) {
+                return; // Allow normal navigation
+            }
+            
+            e.preventDefault();
+            isTransitioning = true;
+            
+            // Slide out only the dynamic section
+            dynamicElement.style.animation = 'slideOutToRight 0.3s ease-in forwards';
+            
+            // Navigate after animation completes
+            setTimeout(() => {
+                window.location.href = targetHref;
+            }, 300);
+        }
+        
+        // Attach smooth navigation to navigation links
+        const navigationLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        navigationLinks.forEach(link => {
+            link.addEventListener('click', handleSmoothNavigation);
         });
+    });
     </script>
 </body>
 </html>

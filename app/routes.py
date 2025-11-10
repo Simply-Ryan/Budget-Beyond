@@ -1,70 +1,130 @@
+"""
+=======================================================
+Budget Beyond - Application Routes
+=======================================================
+Main routing module for the Budget Beyond web application
+
+Features:
+- User authentication and authorization
+- Email verification system  
+- Dynamic page titles with user personalization
+- Session management
+- Form handling with validation
+
+Author: Budget Beyond Team
+Version: 3.0 - Cleaned & Documented
+=======================================================
+"""
+
+# Flask Core Imports
 from flask import (
-    request,        # To read cookies: request.cookies.get('cookie_name')
-    make_response,  # To create response with cookies
-    redirect,       # For redirecting users
-    url_for,        # For generating URLs
-    session,         # Flask's session (uses signed cookies internally)
-    Blueprint, 
-    render_template,
-    flash
+    request,        # Access request data (cookies, forms, etc.)
+    make_response,  # Create HTTP responses with custom headers/cookies
+    redirect,       # HTTP redirects to other routes
+    url_for,        # Generate URLs for Flask routes
+    session,        # Flask's secure session management
+    Blueprint,      # Application component organization
+    render_template, # Render Jinja2 templates
+    flash          # Display one-time messages to users
 )
+
+# Application Imports
 from app.auth import login_required, email_verification_required
 from app.forms import SignupForm, LoginForm
 from app.models import db, User
 from app.email_service import send_verification_email, send_welcome_email
 
+# Create Blueprint for main application routes
 bp = Blueprint('main', __name__)
+
+# ==========================================================================
+# MAIN APPLICATION ROUTES
+# ==========================================================================
 
 @bp.route('/')
 def index():
-    return redirect('/home') # Redirect the user to the homepage because this route is not needed
+    """
+    Root URL - redirects to home page
+    This route exists for convenience but immediately redirects
+    """
+    return redirect('/home')
 
 @bp.route('/home')
 @login_required
 @email_verification_required
 def home():
-    return render_template('home.html')
+    """
+    Main dashboard/home page
+    
+    Requires:
+    - User authentication (login_required)
+    - Email verification (email_verification_required)
+    
+    Features:
+    - Personalized welcome message with user's first name
+    - Dynamic page title for navbar animation
+    """
+    user = User.query.get(session['user_id'])
+    return render_template('home.html', user=user)
+
+# ==========================================================================
+# AUTHENTICATION ROUTES
+# ==========================================================================
 
 @bp.route('/signup', methods=['GET', 'POST'])
 def signup():
+    """
+    User registration route
+    
+    GET: Display signup form
+    POST: Process registration data
+    
+    Features:
+    - Form validation using WTF-Forms
+    - Email uniqueness verification
+    - Password hashing with bcrypt
+    - Automatic email verification system
+    - Session initialization for new users
+    """
     form = SignupForm()
     
     if form.validate_on_submit():
-        # Extract form data
+        # Extract and validate form data
         first_name = form.first_name.data
         last_name = form.last_name.data
         email = form.email.data
         password = form.password.data
         
-        # Check if email already exists
+        # Check for existing email addresses
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
             flash('Email address already exists. Please use a different email.', 'error')
             return render_template('signup.html', form=form)
         
-        # Create new user
+        # Create new user instance
         user = User(
             first_name=first_name,
             last_name=last_name,
             email=email
         )
         
-        # Hash password before storing
+        # Securely hash and store password
         user.set_password(password)
         
-        # Add user to database
+        # Attempt to save user to database
         try:
             db.session.add(user)
             db.session.commit()
             
-            # Log the user in but don't give full access until email verified
+            # Initialize user session (limited access until email verified)
             session['user_id'] = user.id
             session['user_name'] = user.full_name
             
-            # Generate verification token and send verification email
+            # Send email verification
             verification_token = user.generate_verification_token()
             email_sent = send_verification_email(user.email, user.full_name, verification_token)
             
+            # Provide user feedback
             if email_sent:
                 flash('Account created successfully! Please check your email and click the verification link to complete your registration.', 'info')
             else:
@@ -73,10 +133,12 @@ def signup():
             return redirect(url_for('main.verify_email_notice'))
             
         except Exception as e:
+            # Handle database errors gracefully
             db.session.rollback()
             flash('An error occurred while creating your account. Please try again.', 'error')
             return render_template('signup.html', form=form)
     
+    # Display form (GET request or validation failed)
     return render_template('signup.html', form=form)
 
 @bp.route('/login', methods=['GET', 'POST'])
