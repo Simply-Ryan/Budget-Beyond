@@ -15,7 +15,7 @@ def send_verification_email(user_email, user_name, verification_token):
         if current_app.config.get('TESTING') or not current_app.config.get('MAIL_USERNAME'):
             verification_url = f"http://127.0.0.1:5000/verify-email/{verification_token}"
             print(f"\n[EMAIL] VERIFICATION EMAIL (would be sent to {user_email}):")
-            print(f"Subject: Please verify your email - Budget & Beyond")
+            print(f"Subject: Please verify your email - Budget Beyond")
             print(f"To: {user_email}")
             print(f"Verification Link: {verification_url}")
             print(f"Body: Hello {user_name}, Please click the link to verify your email address")
@@ -26,7 +26,7 @@ def send_verification_email(user_email, user_name, verification_token):
         verification_url = f"http://127.0.0.1:5000/verify-email/{verification_token}"
         
         msg = Message(
-            subject='Please verify your email - Budget & Beyond',
+            subject='Please verify your email - Budget Beyond',
             sender=current_app.config['MAIL_DEFAULT_SENDER'],
             recipients=[user_email]
         )
@@ -35,7 +35,7 @@ def send_verification_email(user_email, user_name, verification_token):
         msg.body = f"""
 Hello {user_name},
 
-Welcome to Budget & Beyond! 
+Welcome to Budget Beyond!
 
 To complete your registration and secure your account, please verify your email address by clicking the link below:
 
@@ -43,10 +43,10 @@ To complete your registration and secure your account, please verify your email 
 
 This verification link will expire in 1 hour for security reasons.
 
-If you did not create an account with Budget & Beyond, please ignore this email.
+If you did not create an account with Budget Beyond, please ignore this email.
 
 Best regards,
-The Budget & Beyond Team
+The Budget Beyond Team
 
 ---
 This is an automated message. Please do not reply to this email.
@@ -57,11 +57,11 @@ This is an automated message. Please do not reply to this email.
 <html>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Welcome to Budget & Beyond!</h2>
+        <h2 style="color: #2c3e50;">Welcome to Budget Beyond!</h2>
         
         <p>Hello <strong>{user_name}</strong>,</p>
         
-        <p>Thank you for creating an account with Budget & Beyond. To complete your registration and secure your account, please verify your email address.</p>
+        <p>Thank you for creating an account with Budget Beyond. To complete your registration and secure your account, please verify your email address.</p>
         
         <div style="text-align: center; margin: 30px 0;">
             <a href="{verification_url}" 
@@ -75,9 +75,9 @@ This is an automated message. Please do not reply to this email.
         <p>If the button above doesn't work, you can copy and paste this link into your browser:</p>
         <p style="word-break: break-all; background-color: #f8f9fa; padding: 10px; border-radius: 3px;">{verification_url}</p>
         
-        <p>If you did not create an account with Budget & Beyond, please ignore this email.</p>
+        <p>If you did not create an account with Budget Beyond, please ignore this email.</p>
         
-        <p>Best regards,<br>The Budget & Beyond Team</p>
+        <p>Best regards,<br>The Budget Beyond Team</p>
         
         <hr style="border: 1px solid #eee; margin: 20px 0;">
         <p style="font-size: 12px; color: #666;">This is an automated message. Please do not reply to this email.</p>
@@ -99,14 +99,14 @@ def send_welcome_email(user_email, user_name):
         # For development/testing - print to console
         if current_app.config.get('TESTING') or not current_app.config.get('MAIL_USERNAME'):
             print(f"\n[EMAIL] WELCOME EMAIL (would be sent to {user_email}):")
-            print(f"Subject: Welcome to Budget & Beyond!")
+            print(f"Subject: Welcome to Budget Beyond!")
             print(f"To: {user_email}")
-            print(f"Body: Hello {user_name}, Your email is now verified! Welcome to Budget & Beyond!")
+            print(f"Body: Hello {user_name}, Your email is now verified! Welcome to Budget Beyond!")
             print("[EMAIL] Welcome email would be sent successfully!\n")
             return True
         
         msg = Message(
-            subject='Welcome to Budget & Beyond!',
+            subject='Welcome to Budget Beyond!',
             sender=current_app.config['MAIL_DEFAULT_SENDER'],
             recipients=[user_email]
         )
@@ -115,11 +115,11 @@ def send_welcome_email(user_email, user_name):
         msg.body = f"""
 Hello {user_name},
 
-Welcome to Budget & Beyond! 🎉
+Welcome to Budget Beyond! 🎉
 
 Thank you for creating an account with us. You're now ready to take control of your finances and manage your budget like never before.
 
-Here's what you can do with Budget & Beyond:
+Here's what you can do with Budget Beyond:
 • Track your expenses and income
 • Set up bill reminders
 • Create and manage budgets
@@ -130,7 +130,7 @@ To get started, simply log in to your account at: http://127.0.0.1:5000/login
 If you have any questions or need assistance, feel free to reach out to our support team.
 
 Best regards,
-The Budget & Beyond Team
+The Budget Beyond Team
 
 ---
 This is an automated message. Please do not reply to this email.
@@ -141,13 +141,13 @@ This is an automated message. Please do not reply to this email.
 <html>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #2c3e50;">Welcome to Budget & Beyond! 🎉</h2>
+        <h2 style="color: #2c3e50;">Welcome to Budget Beyond! 🎉</h2>
         
         <p>Hello <strong>{user_name}</strong>,</p>
         
         <p>Thank you for creating an account with us. You're now ready to take control of your finances and manage your budget like never before.</p>
         
-        <h3 style="color: #34495e;">Here's what you can do with Budget & Beyond:</h3>
+        <h3 style="color: #34495e;">Here's what you can do with Budget Beyond:</h3>
         <ul>
             <li>💰 Track your expenses and income</li>
             <li>📅 Set up bill reminders</li>
@@ -164,7 +164,7 @@ This is an automated message. Please do not reply to this email.
         
         <p>If you have any questions or need assistance, feel free to reach out to our support team.</p>
         
-        <p>Best regards,<br>The Budget & Beyond Team</p>
+        <p>Best regards,<br>The Budget Beyond Team</p>
         
         <hr style="border: 1px solid #eee; margin: 20px 0;">
         <p style="font-size: 12px; color: #666;">This is an automated message. Please do not reply to this email.</p>
@@ -184,7 +184,7 @@ def send_password_reset_email(user_email, reset_token):
     """Send password reset email (for future use)"""
     try:
         msg = Message(
-            subject='Password Reset - Budget & Beyond',
+            subject='Password Reset - Budget Beyond',
             sender=current_app.config['MAIL_DEFAULT_SENDER'],
             recipients=[user_email]
         )
@@ -192,7 +192,7 @@ def send_password_reset_email(user_email, reset_token):
         msg.body = f"""
 Hello,
 
-You have requested to reset your password for Budget & Beyond.
+You have requested to reset your password for Budget Beyond.
 
 Click the link below to reset your password:
 http://127.0.0.1:5000/reset-password/{reset_token}
@@ -202,7 +202,7 @@ This link will expire in 1 hour for security reasons.
 If you did not request this password reset, please ignore this email.
 
 Best regards,
-The Budget & Beyond Team
+The Budget Beyond Team
         """
         
         mail.send(msg)

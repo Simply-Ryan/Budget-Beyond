@@ -137,7 +137,7 @@ def verify_email(token):
     # Send welcome email now that email is verified
     send_welcome_email(user.email, user.full_name)
     
-    flash('Email verified successfully! Welcome to Budget & Beyond!', 'success')
+    flash('Email verified successfully! Welcome to Budget Beyond!', 'success')
     
     # Log them in if they're not already
     if 'user_id' not in session:
@@ -166,3 +166,11 @@ def resend_verification():
             flash('Failed to send verification email. Please try again later.', 'error')
     
     return redirect(url_for('main.verify_email_notice'))
+
+@bp.route('/settings')
+@login_required
+@email_verification_required
+def settings():
+    """Settings page for user preferences"""
+    user = User.query.get(session['user_id'])
+    return render_template('settings.html', user=user)

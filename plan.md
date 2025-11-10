@@ -1,4 +1,4 @@
-# Budget & Beyond
+# Budget Beyond
 
 ### Currently being worked on:
 Ryan - Sign Up / Log In Pages
@@ -8,7 +8,7 @@ Ryan - Sign Up / Log In Pages
 
 ---
 
-# 🧭 **Budget & Beyond – Development Roadmap**
+# 🧭 **Budget Beyond – Development Roadmap**
 
 A full-stack personal management dashboard built with **Flask**, **Python**, **HTML/CSS/JS**, and **SQLite**.
 
