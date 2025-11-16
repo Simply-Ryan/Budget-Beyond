@@ -312,8 +312,8 @@ body {
 
 /* Primary Buttons */
 .btn-primary {
-    background-color: #45818E !important; /* Custom blue-teal color */
-    border-color: #45818E !important; /* Match border to background */
+    background-color: rgb(0, 0, 0) !important; /* Custom blue-teal color */
+    border-color: #70d2e8 !important; /* Match border to background */
     border-radius: 50px; /* Creates rounded pill-shaped buttons */
     padding: 0.6rem 1.8rem; /* Extra padding for better click targets */
     font-size: 1.1rem; /* Slightly larger text for prominence */
@@ -321,8 +321,8 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #3a6e7a !important; /* Darker blue-teal on hover */
-    border-color: #3a6e7a !important; /* Match border to hover background */
+    background-color: #70d2e8 !important; /* Darker blue-teal on hover */
+    border-color: #70d2e8 !important; /* Match border to hover background */
     transform: translateY(-2px); /* Subtle upward movement on hover */
     box-shadow: 0 5px 15px rgba(69, 129, 142, 0.4); /* Shadow effect with custom color tint */
 }
@@ -347,8 +347,9 @@ body {
 
 /* Outline Primary Buttons */
 .btn-outline-primary {
-    border-color: #45818E !important; /* Custom blue-teal border */
-    color: #45818E !important; /* Custom blue-teal text */
+    border-color: #000000 !important; /* Custom blue-teal border */
+    background-color: rgb(121, 121, 121) !important; /* Transparent background */
+    color: #ffffff !important; /* Custom blue-teal text */
     border-radius: 50px; /* Matches primary button styling */
     padding: 0.6rem 1.8rem; /* Extra padding for better click targets */
     font-size: 1.1rem; /* Slightly larger text for prominence */
@@ -356,8 +357,8 @@ body {
 }
 
 .btn-outline-primary:hover {
-    background-color: #45818E !important; /* Custom blue-teal background on hover */
-    border-color: #45818E !important; /* Custom blue-teal border on hover */
+    background-color: #70d2e8 !important; /* Custom blue-teal background on hover */
+    border-color: #70d2e8 !important; /* Custom blue-teal border on hover */
     color: #fff !important; /* White text on hover */
     transform: translateY(-2px); /* Subtle upward movement on hover */
     box-shadow: 0 5px 15px rgba(69, 129, 142, 0.3); /* Shadow effect */
@@ -365,31 +366,32 @@ body {
 
 .btn-outline-primary:focus,
 .btn-outline-primary:active {
-    background-color: #3a6e7a !important; /* Darker on focus/active */
+    background-color: #000000 !important; /* Darker on focus/active */
     border-color: #3a6e7a !important; /* Match border */
     color: #fff !important; /* White text */
-    box-shadow: 0 0 0 0.2rem rgba(69, 129, 142, 0.25) !important; /* Custom focus ring */
+    box-shadow: 0 0 0 0.2rem rgba(142, 69, 69, 0.25) !important; /* Custom focus ring */
 }
 
 /* Button Dark Theme */
 [data-bs-theme="dark"] .btn-outline-primary {
-    border-color: #45818E !important; /* Custom blue-teal border */
-    color: #45818E !important; /* Custom blue-teal text */
+    border-color: #54d4ff !important; /* Custom blue-teal border */
+    background-color: black !important; /* Transparent background */
+    color: #ffffff !important; /* Custom blue-teal text */
 }
 
 [data-bs-theme="dark"] .btn-outline-primary:hover {
-    background-color: #45818E !important; /* Custom blue-teal background on hover */
-    border-color: #45818E !important; /* Custom blue-teal border on hover */
+    background-color: #70d2e8 !important; /* Custom blue-teal background on hover */
+    border-color:  #70d2e8 !important; /* Custom blue-teal border on hover */
     color: #fff !important; /* White text on hover */
 }
 
 [data-bs-theme="dark"] .btn-outline-secondary {
-    border-color: #6c757d;
-    color: #6c757d;
+    border-color: #ffffff;
+    color: #ffffff;
 }
 
 [data-bs-theme="dark"] .btn-outline-secondary:hover {
-    background-color: #6c757d;
+    background-color: #7d6c6c;
     border-color: #6c757d;
     color: #fff;
 }
