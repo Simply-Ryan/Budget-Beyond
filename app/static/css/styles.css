@@ -99,7 +99,7 @@ body {
 }
 
 [data-bs-theme="dark"] .card-header {
-    background-color: #333333;
+    background-color: #404040;
     border-bottom: 1px solid #404040;
 }
 
@@ -187,7 +187,7 @@ body {
 .navbar {
     background-color: #ffffff; /* White background for light mode */
     transition: background-color 0.3s ease; /* Smooth color transition for theme changes */
-    border-bottom: #121212 5px solid; /* Dark bottom border for visual separation */
+    border-bottom: #121212 2.5px solid; /* Dark bottom border for visual separation */
 }
 
 .navbar-brand {
@@ -329,31 +329,37 @@ body {
 
 .btn-primary:focus,
 .btn-primary:active {
-    background-color: #3a6e7a !important; /* Consistent color for focus/active states */
+    background-color: #000000 !important; /* Consistent color for focus/active states */
     border-color: #3a6e7a !important; /* Match border */
     box-shadow: 0 0 0 0.2rem rgba(69, 129, 142, 0.25) !important; /* Custom focus ring */
 }
 
 /* Secondary Buttons */
 .btn-outline-secondary {
+    border-color: #000000;
     border-radius: 50px; /* Matches primary button styling */
     transition: all 0.3s ease; /* Smooth hover transitions */
+    border-width: 2px;;
+    color : #000000;
+    
 }
 
 .btn-outline-secondary:hover {
-    background-color: #0d6efd; /* Blue background on hover */
+    background-color: #70d2e8; /* Blue background on hover */
     color: #fff; /* White text on hover */
+    border-color: #70d2e8;
 }
 
 /* Outline Primary Buttons */
 .btn-outline-primary {
     border-color: #000000 !important; /* Custom blue-teal border */
-    background-color: rgb(121, 121, 121) !important; /* Transparent background */
-    color: #ffffff !important; /* Custom blue-teal text */
+    background-color: rgb(255, 255, 255) !important; /* Transparent background */
+    color: #000000 !important; /* Custom blue-teal text */
     border-radius: 50px; /* Matches primary button styling */
     padding: 0.6rem 1.8rem; /* Extra padding for better click targets */
     font-size: 1.1rem; /* Slightly larger text for prominence */
     transition: all 0.3s ease; /* Smooth hover transitions */
+    border-width: 2.5px !important; /* Slightly thicker border for better visibility */
 }
 
 .btn-outline-primary:hover {
@@ -392,7 +398,7 @@ body {
 
 [data-bs-theme="dark"] .btn-outline-secondary:hover {
     background-color: #7d6c6c;
-    border-color: #6c757d;
+    border-color: #ffffff;
     color: #fff;
 }
 
