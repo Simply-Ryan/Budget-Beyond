@@ -179,10 +179,9 @@ A full-stack personal management dashboard built with **Flask**, **Python**, **H
 * Work on **feature branches**:
 
   ```
-  git checkout -b feature/expenses
   git add .
-  git commit -m "Added expense form and chart"
-  git push origin feature/expenses
+  git commit -m "Whatever message"
+  git push origin main
   ```
 * Open a **pull request** → review → merge to main
 
@@ -195,6 +194,10 @@ A full-stack personal management dashboard built with **Flask**, **Python**, **H
 * [ ] Notifications & email reminders
 * [ ] Shared/group budgeting
 * [ ] Cloud sync
+* [ ] AI-based financial insights (e.g., spending trends, saving tips)
+* [ ] Integration with external APIs (e.g., Plaid for bank data)
+* [ ] Budget planning templates
+* [ ] Gamification (e.g., rewards for saving goals)
 
 ---
 

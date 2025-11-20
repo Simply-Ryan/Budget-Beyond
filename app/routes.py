@@ -30,8 +30,8 @@ from flask import (
 
 # Application Imports
 from app.auth import login_required, email_verification_required
-from app.forms import SignupForm, SigninForm
-from app.models import db, User
+from app.forms import SignupForm, SigninForm, ExpenseForm, BillForm, TaskForm
+from app.models import db, User, Expense, Bill, Task
 from app.email_service import send_verification_email, send_welcome_email
 
 # Create Blueprint for main application routes
@@ -236,3 +236,131 @@ def settings():
     """Settings page for user preferences"""
     user = User.query.get(session['user_id'])
     return render_template('settings.html', user=user)
+
+# ==========================================================================
+# FEATURE ROUTES: EXPENSES, BILLS, TASKS
+# ==========================================================================
+
+@bp.route('/expenses', methods=['GET', 'POST'])
+@login_required
+@email_verification_required
+def expenses():
+    """
+    Expenses page
+
+    Features:
+    - Display list of expenses
+    - Add, edit, and delete expenses
+    - Visualize spending trends
+    """
+    user = User.query.get(session['user_id'])
+    form = ExpenseForm()
+
+    if form.validate_on_submit():
+        # Create a new expense
+        expense = Expense(
+            user_id=user.id,
+            category=form.category.data,
+            amount=form.amount.data,
+            date=form.date.data,
+            notes=form.notes.data
+        )
+        db.session.add(expense)
+        db.session.commit()
+        flash('Expense added successfully!', 'success')
+        return redirect(url_for('main.expenses'))
+
+    # Fetch all expenses for the user
+    expenses = Expense.query.filter_by(user_id=user.id).all()
+    return render_template('expenses.html', user=user, form=form, expenses=expenses)
+
+@bp.route('/bills', methods=['GET', 'POST'])
+@login_required
+@email_verification_required
+def bills():
+    """
+    Bills page
+
+    Features:
+    - Manage recurring bills
+    - Track due dates and payment status
+    - Send reminders for upcoming bills
+    """
+    user = User.query.get(session['user_id'])
+    form = BillForm()
+
+    if form.validate_on_submit():
+        # Create a new bill
+        bill = Bill(
+            user_id=user.id,
+            name=form.name.data,
+            amount=form.amount.data,
+            due_date=form.due_date.data,
+            paid=(form.status.data == 'Paid')
+        )
+        db.session.add(bill)
+        db.session.commit()
+        flash('Bill added successfully!', 'success')
+        return redirect(url_for('main.bills'))
+
+    # Fetch all bills for the user
+    bills = Bill.query.filter_by(user_id=user.id).all()
+    return render_template('bills.html', user=user, form=form, bills=bills)
+
+@bp.route('/tasks', methods=['GET', 'POST'])
+@login_required
+@email_verification_required
+def tasks():
+    """
+    Tasks page
+
+    Features:
+    - Manage to-do lists
+    - Add, edit, and delete tasks
+    - Filter tasks by status or due date
+    """
+    user = User.query.get(session['user_id'])
+    form = TaskForm()
+
+    if form.validate_on_submit():
+        # Create a new task
+        task = Task(
+            user_id=user.id,
+            title=form.title.data,
+            due_date=form.due_date.data,
+            completed=False
+        )
+        db.session.add(task)
+        db.session.commit()
+        flash('Task added successfully!', 'success')
+        return redirect(url_for('main.tasks'))
+
+    # Fetch all tasks for the user
+    tasks = Task.query.filter_by(user_id=user.id).all()
+    return render_template('tasks.html', user=user, form=form, tasks=tasks)
+
+@bp.route('/tasks/complete/<int:task_id>', methods=['POST'])
+@login_required
+@email_verification_required
+def complete_task(task_id):
+    """Mark a task as complete"""
+    task = Task.query.get_or_404(task_id)
+    if task.user_id != session['user_id']:
+        abort(403)
+    task.completed = True
+    db.session.commit()
+    flash('Task marked as complete!', 'success')
+    return redirect(url_for('main.tasks'))
+
+@bp.route('/tasks/delete/<int:task_id>', methods=['POST'])
+@login_required
+@email_verification_required
+def delete_task(task_id):
+    """Delete a task"""
+    task = Task.query.get_or_404(task_id)
+    if task.user_id != session['user_id']:
+        abort(403)
+    db.session.delete(task)
+    db.session.commit()
+    flash('Task deleted successfully!', 'success')
+    return redirect(url_for('main.tasks'))

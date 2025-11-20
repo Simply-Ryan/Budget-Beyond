@@ -71,6 +71,15 @@ Features:
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('main.logout') }}">Sign Out</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.expenses') }}">Expenses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.bills') }}">Bills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.tasks') }}">Tasks</a>
+                        </li>
                     </ul>
                 </div>
             {% else %}
@@ -121,8 +130,8 @@ Features:
                 document.body.style.backgroundColor = '#f8f9fa';
                 document.body.style.color = '#212529';
             }
-    <!-- Bootstrap JavaScript Framework -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        });
+    </script>
     
     <script>
     /* ================================================================

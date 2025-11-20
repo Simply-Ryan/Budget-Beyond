@@ -45,3 +45,38 @@ class User(db.Model):
             return User.query.filter_by(email=email).first()
         except:
             return None
+
+
+class Expense(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    date = db.Column(db.Date, default=datetime.utcnow, nullable=False)
+    notes = db.Column(db.Text, nullable=True)
+
+    def __repr__(self):
+        return f'<Expense {self.category}: {self.amount}>'
+
+
+class Bill(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    due_date = db.Column(db.Date, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    paid = db.Column(db.Boolean, default=False, nullable=False)
+
+    def __repr__(self):
+        return f'<Bill {self.name}: {self.amount}>'
+
+
+class Task(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    due_date = db.Column(db.Date, nullable=True)
+    completed = db.Column(db.Boolean, default=False, nullable=False)
+
+    def __repr__(self):
+        return f'<Task {self.title}: {"Completed" if self.completed else "Pending"}>'
