@@ -1,4 +1,6 @@
-/*
+/* RYAN WE NEED TO ORGANIZE BETTER. -Felix 
+
+
 =======================================================
 Budget Beyond - Custom Styles
 =======================================================
@@ -542,4 +544,168 @@ input:checked + .slider:before {
     section.py-5 p.lead {
         font-size: 1rem;
     }
+}
+
+/* ==========================================================================
+   Bills page 
+   ========================================================================== */
+.bills-page {
+    --glass-bg: rgba(255,255,255,0.06);
+    --glass-border: rgba(255,255,255,0.12);
+    --glass-glow: rgba(255,255,255,0.06);
+    --muted: rgba(108,117,125,0.9);
+}
+
+/* Shared card base for bills */
+
+.bills-page .bill-card,
+.bills-page .bill-list-card {
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(180deg, var(--glass-bg), rgba(255,255,255,0.02));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* STRONGER BASE SHADOW - increased spread and opacity to match home page */
+    box-shadow:
+        0 20px 40px rgba(2,6,23,0.14),    /* stronger outer shadow */
+        0 0 36px var(--glass-glow) inset;  /* slightly deeper inner glow */
+    border: 1px solid var(--glass-border);
+    overflow: visible;
+    transition: transform .28s ease, box-shadow .28s ease;
+}
+
+/* Bloomed soft outer glow that reads like a border */
+.bills-page .bill-card::before,
+.bills-page .bill-list-card::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    filter: blur(18px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Ensure content stacks above pseudo element */
+.bills-page .card-body,
+.bills-page .list-group-item,
+.bills-page .card-title {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hover lift */
+.bills-page .bill-card:hover,
+.bills-page .bill-list-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 26px 50px rgba(2,6,23,0.12),
+        0 0 40px rgba(255,255,255,0.06) inset;
+}
+
+/* List item styling */
+.bills-page .bill-list-item {
+    background: transparent;
+    border: none;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Last item - no border */
+.bills-page .bill-list-item:last-child {
+    border-bottom: none;
+}
+
+/* Text & small styling */
+.bills-page .bill-name {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: .2rem;
+}
+
+.bills-page .bill-info .text-muted {
+    color: var(--muted);
+}
+
+/* Amount align */
+.bills-page .bill-amount { min-width: 96px; }
+
+/* Badges */
+.bills-page .badge.paid {
+    background: rgba(25, 135, 84, 0.12);
+    color: #198754;
+    border: 1px solid rgba(25,135,84,0.12);
+    padding: .35rem .5rem;
+    border-radius: .5rem;
+    font-weight: 600;
+}
+
+.bills-page .badge.unpaid {
+    background: rgba(220,53,69,0.08);
+    color: #dc3545;
+    border: 1px solid rgba(220,53,69,0.10);
+    padding: .35rem .5rem;
+    border-radius: .5rem;
+    font-weight: 600;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991.98px) {
+    .bills-page .bill-card::before,
+    .bills-page .bill-list-card::before { inset: -8px; filter: blur(14px); }
+}
+
+/* Dark theme adjustments */
+[data-bs-theme="dark"] .bills-page {
+    --glass-bg: rgba(255,255,255,0.03);
+    --glass-border: rgba(255,255,255,0.06);
+    --glass-glow: rgba(255,255,255,0.03);
+    --muted: rgba(200,200,200,0.55);
+}
+
+[data-bs-theme="dark"] .bills-page .badge.paid { background: rgba(25,135,84,0.08); color: #96f2d7; }
+[data-bs-theme="dark"] .bills-page .badge.unpaid { background: rgba(220,53,69,0.06); color: #ffb3b8; }
+
+/* keep the card bodies readable on top of glass */
+.bills-page .card p,
+.bills-page .card .form-label,
+.bills-page .card .form-control,
+.bills-page .card .card-title {
+    color: inherit;
+}
+
+/* Adjust vertical length + scrolling for Upcoming Bills frame */
+.bills-page .bill-list-card {
+    /* Visible height (use whichever combination fits your layout) */
+    min-height: 200px;     /* ensures the panel is tall enough */
+    max-height: 65vh;      /* caps height relative to viewport */
+    display: flex;
+    flex-direction: column; /* allow body to grow and scroll */
+    overflow: hidden;
+}
+
+/* Make the interior scrollable while keeping header visible */
+.bills-page .bill-list-card .card-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+/* Optional: nicer thin scrollbar */
+.bills-page .bill-list-card .card-body::-webkit-scrollbar { width: 10px; }
+.bills-page .bill-list-card .card-body::-webkit-scrollbar-track { background: transparent; }
+.bills-page .bill-list-card .card-body::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.12);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+/* Dark theme scrollbar tweak */
+[data-bs-theme="dark"] .bills-page .bill-list-card .card-body::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.08);
 }
